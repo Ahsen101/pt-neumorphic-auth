@@ -192,18 +192,17 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
   transform: rotateY(180deg);
 }
 
-/* Dark mode: glass faces that merge with background */
+/* Dark mode: raised 3D sphere that pops off the background (like white mode) */
 [data-theme="dark"] .card-face {
-  background: rgba(8, 10, 18, 0.45);
+  background: linear-gradient(145deg, #1e2235, #161929);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 2px solid rgba(241, 66, 11, 0.25);
   box-shadow:
-    20px 20px 50px rgba(0, 0, 0, 0.5),
-    -10px -10px 30px rgba(42, 147, 193, 0.06),
-    0 0 30px rgba(241, 66, 11, 0.1),
-    inset 4px 4px 15px rgba(255, 255, 255, 0.03),
-    inset -4px -4px 15px rgba(0, 0, 0, 0.3);
+    20px 20px 50px rgba(0, 0, 0, 0.7),
+    -20px -20px 50px rgba(30, 34, 53, 0.4),
+    inset 6px 6px 12px rgba(40, 45, 65, 0.3),
+    inset -6px -6px 12px rgba(5, 7, 12, 0.5);
 }
 
 /* Dark mode text adapts to background colors */
@@ -246,12 +245,6 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 }
 [data-theme="dark"] .forgot-link:hover {
   color: var(--pt-orange);
-}
-[data-theme="dark"] .brand-bar span {
-  background: linear-gradient(90deg, var(--pt-blue), var(--pt-orange));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 /* Form content inside each face */
@@ -487,38 +480,67 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
   opacity: 0.8;
 }
 .brand-bar img {
-  width: 32px;
-  height: 32px;
+  height: 30px;
+  width: auto;
   object-fit: contain;
 }
-.brand-bar span {
-  color: var(--text-secondary);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
+/* Hide the wrong variant per theme */
+.brand-bar .logo-dark { display: none; }
+[data-theme="dark"] .brand-bar .logo-light { display: none; }
+[data-theme="dark"] .brand-bar .logo-dark { display: block; }
 
 /* Responsive */
-@media (max-width: 440px) {
+@media (max-width: 480px) {
   .auth-container {
-    width: 340px;
-    height: 340px;
+    width: 90vw;
+    height: 90vw;
+    max-width: 380px;
+    max-height: 380px;
   }
   .auth-card {
-    width: 340px;
-    height: 340px;
+    width: 90vw;
+    height: 90vw;
+    max-width: 380px;
+    max-height: 380px;
   }
   .card-face {
-    width: 340px;
-    height: 340px;
-    padding: 30px 35px;
+    width: 90vw;
+    height: 90vw;
+    max-width: 380px;
+    max-height: 380px;
+    padding: 25px 30px;
   }
   .input-group, .options-row, .auth-btn {
-    max-width: 220px;
+    max-width: 200px;
   }
-  .auth-title { font-size: 24px; }
-  .auth-subtitle { margin-bottom: 12px; }
+  .input-group input {
+    padding: 10px 14px 10px 38px;
+    font-size: 13px;
+  }
+  .auth-title { font-size: 22px; }
+  .auth-subtitle { font-size: 10px; margin-bottom: 10px; letter-spacing: 2px; }
+  .auth-btn { padding: 10px; font-size: 12px; margin-bottom: 8px; }
+  .switch-text { font-size: 11px; }
+  .social-row { margin-top: 6px; gap: 12px; }
+  .social-btn { width: 34px; height: 34px; }
+  .social-btn svg { width: 16px; height: 16px; }
+  .options-row { margin-bottom: 10px; }
+  .toggle-label { font-size: 10px; }
+  .forgot-link { font-size: 10px; }
+  .brand-bar { margin-top: 20px; }
+  .brand-bar img { height: 24px; width: auto; }
+}
+
+@media (max-width: 360px) {
+  .auth-container, .auth-card, .card-face {
+    width: 88vw;
+    height: 88vw;
+  }
+  .input-group, .options-row, .auth-btn {
+    max-width: 180px;
+  }
+  .auth-title { font-size: 20px; }
+  .card-face { padding: 20px 25px; }
 }
 </style>
 </head>
@@ -611,8 +633,8 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 </template>
 
 <div class="brand-bar">
-  <img src="purebrain-logo.png" alt="PureBrain Logo">
-  <span>Pure Technology</span>
+  <img src="pt-logo-orange.png" alt="Pure Technology" class="logo-light">
+  <img src="pt-logo-white.png" alt="Pure Technology" class="logo-dark">
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

@@ -159,16 +159,17 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 /* Circular Card */
 .auth-card {
   width: 380px;
+  height: 380px;
   padding: 50px 40px 40px;
   border-radius: 50%;
   background: var(--card-bg);
+  border: 2px solid var(--pt-orange);
   box-shadow:
     12px 12px 24px var(--shadow-dark),
     -12px -12px 24px var(--shadow-light);
   display: flex;
   flex-direction: column;
   align-items: center;
-  aspect-ratio: 1;
   justify-content: center;
   transition: all 0.4s ease;
 }
@@ -395,6 +396,7 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 @media (max-width: 440px) {
   .auth-card {
     width: 320px;
+    height: 320px;
     padding: 40px 30px 30px;
   }
   .input-group, .options-row, .auth-btn {

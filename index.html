@@ -171,15 +171,68 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s ease;
+  transition: all 0.6s ease;
 }
 
-/* Dark mode: glass effect on card */
+/* Dark mode: glass card that merges with background */
 [data-theme="dark"] .auth-card {
-  background: rgba(30, 34, 53, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(61,184,245,.10);
+  background: rgba(8, 10, 18, 0.45);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 2px solid var(--pt-orange);
+  box-shadow:
+    0 0 30px rgba(241, 66, 11, 0.15),
+    0 0 60px rgba(42, 147, 193, 0.08),
+    inset 0 0 40px rgba(42, 147, 193, 0.04);
+}
+
+/* Dark mode text adapts to background colors */
+[data-theme="dark"] .auth-title {
+  background: linear-gradient(135deg, #ffffff, var(--pt-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme="dark"] .auth-subtitle {
+  color: rgba(61, 184, 245, 0.6);
+}
+[data-theme="dark"] .input-group input {
+  background: rgba(8, 10, 18, 0.6);
+  box-shadow:
+    inset 2px 2px 5px rgba(0,0,0,0.4),
+    inset -2px -2px 5px rgba(42,147,193,0.05);
+  border: 1px solid rgba(42, 147, 193, 0.12);
+}
+[data-theme="dark"] .input-group input:focus {
+  border-color: var(--pt-orange);
+  box-shadow:
+    inset 2px 2px 5px rgba(0,0,0,0.4),
+    inset -2px -2px 5px rgba(42,147,193,0.05),
+    0 0 12px rgba(241, 66, 11, 0.15);
+}
+[data-theme="dark"] .auth-btn {
+  background: rgba(8, 10, 18, 0.5);
+  border: 1px solid rgba(241, 66, 11, 0.2);
+  color: #c0ccdd;
+}
+[data-theme="dark"] .auth-btn:hover {
+  background: linear-gradient(135deg, var(--pt-blue), var(--pt-orange));
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(241, 66, 11, 0.3), 0 0 40px rgba(42, 147, 193, 0.15);
+}
+[data-theme="dark"] .switch-link {
+  color: var(--pt-orange);
+  text-shadow: 0 0 8px rgba(241, 66, 11, 0.3);
+}
+[data-theme="dark"] .forgot-link:hover {
+  color: var(--pt-orange);
+}
+[data-theme="dark"] .brand-bar {
+  background: linear-gradient(90deg, var(--pt-blue), var(--pt-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.8;
 }
 
 /* Form Wrapper for transitions */

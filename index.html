@@ -250,12 +250,11 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 [data-theme="dark"] .forgot-link:hover {
   color: var(--pt-orange);
 }
-[data-theme="dark"] .brand-bar {
+[data-theme="dark"] .brand-bar span {
   background: linear-gradient(90deg, var(--pt-blue), var(--pt-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  opacity: 0.8;
 }
 
 /* Form content inside each face */
@@ -441,12 +440,23 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 /* Branding */
 .brand-bar {
   margin-top: 30px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0.8;
+}
+.brand-bar img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+.brand-bar span {
   color: var(--text-secondary);
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.6;
 }
 
 /* Responsive */
@@ -544,7 +554,10 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
   </div>
 </div>
 
-<div class="brand-bar">Pure Technology</div>
+<div class="brand-bar">
+  <img src="purebrain-logo.png" alt="PureBrain Logo">
+  <span>Pure Technology</span>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>

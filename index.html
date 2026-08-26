@@ -58,6 +58,28 @@ body {
   align-items: center;
   justify-content: center;
   transition: background 0.4s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Space Background */
+.starfield {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.starfield canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Everything above starfield */
+.theme-toggle, .auth-container, .brand-bar {
+  position: relative;
+  z-index: 1;
 }
 
 /* Theme Toggle */
@@ -343,6 +365,7 @@ body {
 </head>
 <body>
 
+<div class="starfield"><canvas id="stars"></canvas></div>
 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"></button>
 
 <div class="auth-container">
@@ -433,6 +456,69 @@ function toggleTheme() {
 // Persist theme
 const saved = localStorage.getItem('pt-theme');
 if (saved) document.documentElement.setAttribute('data-theme', saved);
+
+// Starfield
+(function() {
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let w, h, stars = [];
+  const STAR_COUNT = 200;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  function createStars() {
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.8 + 0.3,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        twinkleSpeed: Math.random() * 0.02 + 0.005,
+        twinklePhase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    for (const s of stars) {
+      s.x += s.vx;
+      s.y += s.vy;
+      if (s.x < 0) s.x = w;
+      if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h;
+      if (s.y > h) s.y = 0;
+
+      const twinkle = 0.4 + 0.6 * ((Math.sin(t * s.twinkleSpeed + s.twinklePhase) + 1) / 2);
+      const alpha = isDark ? twinkle : twinkle * 0.35;
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      if (isDark) {
+        const colors = ['rgba(42,147,193,', 'rgba(241,66,11,', 'rgba(200,210,230,'];
+        const c = colors[Math.floor(s.twinklePhase * 10) % 3];
+        ctx.fillStyle = c + alpha + ')';
+      } else {
+        ctx.fillStyle = 'rgba(42,147,193,' + alpha + ')';
+      }
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); createStars(); });
+  resize();
+  createStars();
+  requestAnimationFrame(draw);
+})();
 </script>
 </body>
 </html>

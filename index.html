@@ -187,14 +187,14 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
   -webkit-backface-visibility: hidden;
 }
 
-/* Signup face — behind login */
+/* Signup face — opposite side of login */
 .card-signup {
   transform: rotateY(180deg);
 }
 
-/* Forgot face — behind signup (at 360deg from front) */
+/* Forgot face — right side (90deg turn) */
 .card-forgot {
-  transform: rotateY(-180deg);
+  transform: rotateY(90deg);
 }
 
 /* Dark mode: glass faces that merge with background */
@@ -635,17 +635,25 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 var currentAngle = 0;
-var faceAngles = { login: 0, signup: -180, forgot: 180 };
+// Login at 0, Signup at 180 (back), Forgot at -90 (right side)
+var faceAngles = { login: 0, signup: -180, forgot: -90 };
 
 function flipTo(face) {
   var card = document.getElementById('authCard');
   var targetAngle = faceAngles[face];
   // Calculate shortest rotation path
-  var diff = targetAngle - (currentAngle % 360);
+  var diff = targetAngle - normalizeAngle(currentAngle);
   if (diff > 180) diff -= 360;
   if (diff < -180) diff += 360;
   currentAngle += diff;
   card.style.transform = 'rotateY(' + currentAngle + 'deg)';
+}
+
+function normalizeAngle(a) {
+  a = a % 360;
+  if (a > 180) a -= 360;
+  if (a < -180) a += 360;
+  return a;
 }
 
 function toggleTheme() {

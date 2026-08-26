@@ -187,14 +187,9 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
   -webkit-backface-visibility: hidden;
 }
 
-/* Signup face — opposite side of login */
-.card-signup {
+/* Back face — always 180deg behind front */
+.card-back {
   transform: rotateY(180deg);
-}
-
-/* Forgot face — right side (90deg turn) */
-.card-forgot {
-  transform: rotateY(90deg);
 }
 
 /* Dark mode: glass faces that merge with background */
@@ -538,94 +533,82 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 <div class="auth-container">
   <div class="auth-card" id="authCard">
 
-    <!-- Front Face: Login -->
-    <div class="card-face card-front">
-      <form class="auth-form" onsubmit="return false">
-        <h1 class="auth-title">Login</h1>
-        <p class="auth-subtitle">Sign in to your account</p>
+    <!-- Front Face -->
+    <div class="card-face card-front" id="cardFront"></div>
 
-        <div class="input-group">
-          <input type="text" placeholder="Username" autocomplete="username">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>
-        </div>
-
-        <div class="input-group">
-          <input type="password" placeholder="Password" autocomplete="current-password">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1s3.1 1.4 3.1 3.1v2z"/></svg>
-        </div>
-
-        <div class="options-row">
-          <label class="toggle-label">
-            <input type="checkbox" class="toggle-input">
-            <span class="toggle-switch"></span>
-            Remember me
-          </label>
-          <a href="#" class="forgot-link" onclick="flipTo('forgot'); return false;">Forgot password?</a>
-        </div>
-
-        <button class="auth-btn" type="submit">Sign In</button>
-
-        <p class="switch-text">Don't have an account? <span class="switch-link" onclick="flipTo('signup')">Sign up</span></p>
-
-        <div class="social-row">
-          <!-- Google -->
-          <button class="social-btn" aria-label="Sign in with Google">
-            <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-          </button>
-          <!-- iCloud / Apple -->
-          <button class="social-btn" aria-label="Sign in with Apple">
-            <svg viewBox="0 0 24 24" fill="var(--text-primary)"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Face 2: Sign Up -->
-    <div class="card-face card-signup">
-      <form class="auth-form" onsubmit="return false">
-        <h1 class="auth-title">Sign Up</h1>
-        <p class="auth-subtitle">Create your account</p>
-
-        <div class="input-group">
-          <input type="text" placeholder="Full name" autocomplete="name">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>
-        </div>
-
-        <div class="input-group">
-          <input type="email" placeholder="Email" autocomplete="email">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </div>
-
-        <div class="input-group">
-          <input type="password" placeholder="Password" autocomplete="new-password">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1s3.1 1.4 3.1 3.1v2z"/></svg>
-        </div>
-
-        <button class="auth-btn" type="submit">Create Account</button>
-
-        <p class="switch-text">Already have an account? <span class="switch-link" onclick="flipTo('login')">Login</span></p>
-      </form>
-    </div>
-
-    <!-- Face 3: Forgot Password -->
-    <div class="card-face card-forgot">
-      <form class="auth-form" onsubmit="return false">
-        <h1 class="auth-title">Reset</h1>
-        <p class="auth-subtitle">Forgot your password?</p>
-
-        <div class="input-group">
-          <input type="email" placeholder="Enter your email" autocomplete="email">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </div>
-
-        <button class="auth-btn" type="submit">Send Reset Link</button>
-
-        <p class="switch-text">Remember it? <span class="switch-link" onclick="flipTo('login')">Login</span></p>
-      </form>
-    </div>
+    <!-- Back Face -->
+    <div class="card-face card-back" id="cardBack"></div>
 
   </div>
 </div>
+
+<!-- Templates (hidden) -->
+<template id="tpl-login">
+  <form class="auth-form" onsubmit="return false">
+    <h1 class="auth-title">Login</h1>
+    <p class="auth-subtitle">Sign in to your account</p>
+    <div class="input-group">
+      <input type="text" placeholder="Username" autocomplete="username">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>
+    </div>
+    <div class="input-group">
+      <input type="password" placeholder="Password" autocomplete="current-password">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1s3.1 1.4 3.1 3.1v2z"/></svg>
+    </div>
+    <div class="options-row">
+      <label class="toggle-label">
+        <input type="checkbox" class="toggle-input">
+        <span class="toggle-switch"></span>
+        Remember me
+      </label>
+      <a href="#" class="forgot-link" onclick="flipTo('forgot'); return false;">Forgot password?</a>
+    </div>
+    <button class="auth-btn" type="submit">Sign In</button>
+    <p class="switch-text">Don't have an account? <span class="switch-link" onclick="flipTo('signup')">Sign up</span></p>
+    <div class="social-row">
+      <button class="social-btn" type="button" aria-label="Sign in with Google">
+        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      </button>
+      <button class="social-btn" type="button" aria-label="Sign in with Apple">
+        <svg viewBox="0 0 24 24" fill="var(--text-primary)"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+      </button>
+    </div>
+  </form>
+</template>
+
+<template id="tpl-signup">
+  <form class="auth-form" onsubmit="return false">
+    <h1 class="auth-title">Sign Up</h1>
+    <p class="auth-subtitle">Create your account</p>
+    <div class="input-group">
+      <input type="text" placeholder="Full name" autocomplete="name">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>
+    </div>
+    <div class="input-group">
+      <input type="email" placeholder="Email" autocomplete="email">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </div>
+    <div class="input-group">
+      <input type="password" placeholder="Password" autocomplete="new-password">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1s3.1 1.4 3.1 3.1v2z"/></svg>
+    </div>
+    <button class="auth-btn" type="submit">Create Account</button>
+    <p class="switch-text">Already have an account? <span class="switch-link" onclick="flipTo('login')">Login</span></p>
+  </form>
+</template>
+
+<template id="tpl-forgot">
+  <form class="auth-form" onsubmit="return false">
+    <h1 class="auth-title">Reset</h1>
+    <p class="auth-subtitle">Forgot your password?</p>
+    <div class="input-group">
+      <input type="email" placeholder="Enter your email" autocomplete="email">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </div>
+    <button class="auth-btn" type="submit">Send Reset Link</button>
+    <p class="switch-text">Remember it? <span class="switch-link" onclick="flipTo('login')">Login</span></p>
+  </form>
+</template>
 
 <div class="brand-bar">
   <img src="purebrain-logo.png" alt="PureBrain Logo">
@@ -634,27 +617,33 @@ html[data-theme="light"] #hero-scrim { opacity: 0; transition: opacity 0.4s ease
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-var currentAngle = 0;
-// Login at 0, Signup at 180 (back), Forgot at -90 (right side)
-var faceAngles = { login: 0, signup: -180, forgot: -90 };
+var flipped = false;
+var currentFace = 'login'; // which view is currently showing
 
-function flipTo(face) {
+function loadTemplate(face) {
+  var tpl = document.getElementById('tpl-' + face);
+  return tpl.content.cloneNode(true);
+}
+
+function flipTo(target) {
+  if (target === currentFace) return;
   var card = document.getElementById('authCard');
-  var targetAngle = faceAngles[face];
-  // Calculate shortest rotation path
-  var diff = targetAngle - normalizeAngle(currentAngle);
-  if (diff > 180) diff -= 360;
-  if (diff < -180) diff += 360;
-  currentAngle += diff;
-  card.style.transform = 'rotateY(' + currentAngle + 'deg)';
+  var front = document.getElementById('cardFront');
+  var back = document.getElementById('cardBack');
+
+  // Load target content into the hidden face
+  var hiddenFace = flipped ? front : back;
+  hiddenFace.innerHTML = '';
+  hiddenFace.appendChild(loadTemplate(target));
+
+  // Flip
+  flipped = !flipped;
+  card.style.transform = flipped ? 'rotateY(-180deg)' : 'rotateY(0deg)';
+  currentFace = target;
 }
 
-function normalizeAngle(a) {
-  a = a % 360;
-  if (a > 180) a -= 360;
-  if (a < -180) a += 360;
-  return a;
-}
+// Initialize: load login into front face on page load
+document.getElementById('cardFront').appendChild(loadTemplate('login'));
 
 function toggleTheme() {
   const html = document.documentElement;
